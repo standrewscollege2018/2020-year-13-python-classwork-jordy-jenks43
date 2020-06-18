@@ -1,5 +1,16 @@
 '''this program is able to manage a student data base'''
-import random
+
+def generateStudents():
+    import csv
+    with open ('myRandomStudents.csv', newline='') as csvfile:
+        filereader = csv.reader(csvfile)
+        for line in filereader:
+            classes = []
+            i = 4
+            while i in range(4,9):
+                classes.append(line[i])
+                i += 1
+            Student(line[0], int(line[1]), line[2], line[3], classes)
 
 class Student:
     '''the student class stores student's name, age phone number, if they are enrolled, gender, and a list of their classes'''
@@ -28,13 +39,21 @@ class Student:
         return self._gender
     
     def get_classes(self):
-        return self.classes
+        return self._classes
 
 student_list = []
 
-Student("Jack", "16", "0273956577", "Male", "GRA, MAT, ENG")
-Student("Hannah", "15", "0274528999", "Female", "MAT, ART")
-Student("Matt", "17", "0224887765", "Male", "MAT, PHY, ART")
+generateStudents()
+
+print(student.get_classes())
+
+'''
+student_class_selection = input("Input a class: ")
+count = 0
 
 for student in student_list:
-    print(student.get_name())
+    if student_class_selection.lower() in student.get_classes():
+        count += 1
+
+print(count)
+'''
