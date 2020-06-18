@@ -19,7 +19,7 @@ class Enemy:
     def attack(self):
         '''this function subtracts 1 from the objects health'''
         self._life -= 1
-        if self._life == 0:
+        if self._life <= 0:
             print("i ded")
         else:
             print("ow")
@@ -56,7 +56,7 @@ while tf == True:
     print("4. leave")
     user_choice = int(input())
     if user_choice == 1:
-        show_all()
+        show_all() 
         input()
     elif user_choice == 2:
         life_check()
