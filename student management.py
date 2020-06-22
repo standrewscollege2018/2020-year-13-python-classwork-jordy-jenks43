@@ -52,15 +52,35 @@ def generateStudents():
 
 '''function for finding the number of students enrolled to a subject'''
 def find_class():
-    student_class_selection = input("Input a class: ")
+    student_class_selection = input("What class are you looking for?: ")
     count = 0    
     for student in student_list:
         if student_class_selection.upper() in student.get_classes():
             count += 1
-    
-    print(count)    
-    
+    if count == 0:
+        print("There are no students in this class!")
+    else:
+        print(count)    
+
+'''function for printing the name of students that signed up for the class'''
+def students_in_class():
+    student_class_selection = input("Which class are you looking for?: ")
+    for student in student_list:
+        if student_class_selection.upper() in student.get_classes():
+            print(student.get_name())
+
+'''function for printing out specific student information'''
+def find_student():
+    student_search_input = input("Who are you looking for? ")
+    for student in student_list:
+        if student_search_input.title() == student.get_name():
+            print(student.get_name())
+            print(student.get_age())
+            print(student.get_phone())
+            print(student.get_gender())
+            print(student.get_classes())
+
 student_list = []
 
 generateStudents()
-find_class()
+find_student()
