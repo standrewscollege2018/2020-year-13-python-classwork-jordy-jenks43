@@ -90,25 +90,74 @@ def find_student():
     else:
         for i in range(len(find_student)):
             print("-", find_student[i])
-                
+
+def line_break():
+    return print("############################################")
+
+def add_student():
+    try:
+        line_break()
+        new_name = input("Students name: ")
+        line_break()
+        ask_age = True
+        while ask_age == True:
+            try:
+                new_age = int(input("Students age: "))
+                ask_age = False
+            except:
+                print("Use only whole numbers!")
+        line_break()
+        ask_phone = True
+        while ask_phone == True:
+            try:
+                new_phone = int(input("Students phone number: "))
+                ask_phone = False
+            except:
+                print("Use only whole numbers!")
+        line_break()
+        new_gender = input("Students gender: ")
+        line_break()
+        i = 0
+        print("Input each of the students classes on a new line: ")
+        print("There are five classes")
+        new_class = []
+        for i in range(5):
+            new_class_append = input()
+            new_class.append(new_class_append.upper())
+        print("Does this look right?")
+        import csv
+        with open('myRandomStudents.csv', 'w', newline='') as csvfile:
+            writer = csv.writer(file)
+            writer.writerow([new_name.title(), new_age, new_phone, new_gender.capitalize(), new_class[0], new_class[1], new_class[3], new_class[4]])
+    except:
+        print("Something went wrong")
+
 student_list = []
 
 generateStudents()
 
+add_student()
+
 tf = True
 while tf == True:
+    line_break()
     print("1. Find the number of students in a class")
     print("2. Find students in a class")
     print("3. Find a specific student")
-    print("4. Quit")
+    print("4. Add student to the roster")
+    print("5. Quit")
+    line_break()
     try:
         user_choice = int(input("What would you like to do? "))
+        line_break()
         if user_choice == 1:
             find_class()
         elif user_choice == 2:
             students_in_class()
         elif user_choice == 3:
             find_student()
+        elif user_choice == 4:
+            add_student()
         else:
             sure = input("Are you sure? y/n: ")
             if sure.lower() == 'y':
