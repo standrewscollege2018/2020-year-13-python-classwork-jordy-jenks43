@@ -4,7 +4,7 @@
  You will need to have this saved in the same folder as the teachers.csv and myRandomStudents.csv files.
  '''
 
-from guizero import App, ListBox, Text
+from guizero import App, ListBox, Text, Combo
 import csv
 
 class Teacher:
