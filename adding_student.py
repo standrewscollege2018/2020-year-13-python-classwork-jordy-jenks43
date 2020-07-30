@@ -3,10 +3,6 @@
  It has class definitions and generates all students and teachers, otherwise has no functionality.
  You will need to have this saved in the same folder as the teachers.csv and myRandomStudents.csv files.
  '''
-
-
-
-
 class Teacher:
     ''' Teachers have a name and a class they are attached to. '''
 
@@ -103,7 +99,6 @@ def generate_students():
                 i+=1
             Student(line[0], int(line[1]), line[2],line[3], classes)
 
-
 # Empty lists to store all teachers and students
 teacher_list = []     
 student_list = []
@@ -128,7 +123,6 @@ def display_details():
             student_age.value = "Age:" + str(student.get_age())
             student_phone.value = "Phone: " + str(student.get_phone())
 
-
 def search():
     ''' Get names of students matching the search. '''
 
@@ -141,17 +135,30 @@ def search():
 
             student_listbox.append(student.get_name())
 
-
 def add_student():
     ''' Add new student using details entered. '''
 
-    pass
-
-
+    #Checking if parameters are empty
+    if name_text.value == "" or age_text.value == "" or phone_text.value == "" or gender_combo.value == "" or class_listbox.value == "":
+        #info box displays a popup error message if any one of the fields is empty
+        info("Error!", "Fill out all fields!") 
+    #if all parameters have something in them, this code will run and the student will be added
+    else:
+        Student(name_text.value, age_text.value, phone_text.value, gender_combo.value, class_listbox.value)
+        success_lbl.value = "New Student Added"
+        #clearing the inputs
+        name_text.clear()
+        age_text.clear()
+        phone_text.clear()
+        gender_combo.clear()
+        class_listbox.clear()
+        #focussing the cursor back onto the name input
+        name_text.focus()
 
 # create the application interface
-from guizero import App, Text, ListBox, PushButton, TextBox, Box, Combo
+from guizero import App, Text, ListBox, PushButton, TextBox, Box, Combo, info
 
+#titling the app, and establishing the layout
 app = App(title="Student management system", layout="grid")
 
 # Set up the Box areas for our layout
@@ -170,9 +177,8 @@ gender_lbl = Text(add_box, text="Gender", grid=[0,4])
 gender_combo = Combo(add_box, options=["Male", "Female", "Other"], grid=[1,4])
 class_lbl = Text(add_box, text="Classes", grid=[0,5], align="top")
 class_listbox = ListBox(add_box, ["GRA", "BIO", "PHY", "MAT", "DTC", "ART", "ENG", "XYZ"], grid=[1,5], multiselect=True)
-add_button = PushButton(add_box, text="Add student", grid=[0,6, 2, 1], width=20,command=add_student)
+add_button = PushButton(add_box, text="Add student", grid=[0,6, 2, 1], width=20, command=add_student)
 success_lbl = Text(add_box, grid=[0,7,2,1])
-
 
 # This is section where you add any GUI widgets to the search_box area
 heading = Text(search_box, text="Search", color=(210, 45, 17))
