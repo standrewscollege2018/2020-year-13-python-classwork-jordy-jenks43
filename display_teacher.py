@@ -18,7 +18,7 @@ class Teacher:
 
 def generateTeachers():
     import csv
-    with open('generateTeachers.csv', newline='') as csvfile:
+    with open('teachers.csv', newline='') as csvfile:
         filereader = csv.reader(csvfile)
         for line in filereader:
             Teacher(line[0], line[1])

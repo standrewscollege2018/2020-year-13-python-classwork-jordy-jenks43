@@ -155,6 +155,24 @@ def add_student():
         #focussing the cursor back onto the name input
         name_text.focus()
 
+def delete_student():
+    '''This function deletes the selected student'''
+
+    #Check if a student is selected
+    if student_listbox.value == None:
+        info("Error...", "Select a student first")
+    else:
+        delete_popup = app.yesno("Hold on", "Do you really want to delete this student?")
+        if delete_popup == True:
+            # Get the index of the student we are deleteing (position in student_name)
+            i = student_names.index(student_listbox.value)
+            # Delete from both student_names and student_list
+            del(student_list[i])
+            del(student_names[i])
+            # Refresh the listbox, so that the student disappears
+            search()
+
+
 # create the application interface
 from guizero import App, Text, ListBox, PushButton, TextBox, Box, Combo, info
 
@@ -163,35 +181,36 @@ app = App(title="Student management system", layout="grid")
 
 # Set up the Box areas for our layout
 add_box = Box(app, grid=[0,0], layout="grid")
-search_box = Box(app, grid=[1,0])
+search_box = Box(app, grid=[1,0], layout="grid")
+delete_box = Box(app, grid=[2,0], layout="grid")
 
 # This section has the GUI widgets in the add_box area
 heading = Text(add_box, text="Add new student", grid=[0,0])
-name_lbl = Text(add_box, text="Name", grid=[0,1])
-name_text = TextBox(add_box, grid=[1,1])
-age_lbl = Text(add_box, text="Age", grid=[0,2])
-age_text = TextBox(add_box, grid=[1,2])
-phone_lbl = Text(add_box, text="Phone", grid=[0,3])
-phone_text = TextBox(add_box, grid=[1,3])
-gender_lbl = Text(add_box, text="Gender", grid=[0,4])
-gender_combo = Combo(add_box, options=["Male", "Female", "Other"], grid=[1,4])
-class_lbl = Text(add_box, text="Classes", grid=[0,5], align="top")
-class_listbox = ListBox(add_box, ["GRA", "BIO", "PHY", "MAT", "DTC", "ART", "ENG", "XYZ"], grid=[1,5], multiselect=True)
-add_button = PushButton(add_box, text="Add student", grid=[0,6, 2, 1], width=20, command=add_student)
-success_lbl = Text(add_box, grid=[0,7,2,1])
+name_lbl = Text(add_box, text="Name:", grid=[0,1])
+name_text = TextBox(add_box, grid=[0,2])
+age_lbl = Text(add_box, text="Age:", grid=[0,3])
+age_text = TextBox(add_box, grid=[0,4])
+phone_lbl = Text(add_box, text="Phone:", grid=[0,5])
+phone_text = TextBox(add_box, grid=[0,6])
+gender_lbl = Text(add_box, text="Gender:", grid=[0,7])
+gender_combo = Combo(add_box, options=["Male", "Female", "Other"], grid=[0,8])
+class_lbl = Text(add_box, text="Classes:", grid=[0,9], align="top")
+class_listbox = ListBox(add_box, ["GRA", "BIO", "PHY", "MAT", "DTC", "ART", "ENG", "XYZ"], grid=[0,10], multiselect=True)
+add_button = PushButton(add_box, text="Add student", grid=[0, 11, 2, 1], width=20, command=add_student)
+success_lbl = Text(add_box, grid=[0, 12, 2, 1])
 
-# This is section where you add any GUI widgets to the search_box area
+# This section is where you add any GUI widgets to the search_box area
 heading = Text(search_box, text="Search", color=(210, 45, 17))
-
 search_textbox = TextBox(search_box)
 search_button = PushButton(search_box, text="Search", command=search)
-
 student_listbox = ListBox(search_box, command=display_details)
-
 student_name = Text(search_box)
 student_age = Text(search_box)
 student_phone = Text(search_box)
 student_gender = Text(search_box)
+
+# This section is where the GUI widgets go for the delete_box area
+delete_button = PushButton(delete_box, text="Delete", command=delete_student)
 
 # Start the program
 app.display()
